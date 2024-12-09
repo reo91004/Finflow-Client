@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation'; // next/router 대신 사용..
 import Image from 'next/image';
 import Logo from '../../../../../public/images/logo.png';
 import Link from 'next/link';
@@ -7,6 +8,7 @@ import { useState } from 'react';
 import { auth, createUserWithEmailAndPassword } from '@/firebase';
 
 export default function Page() {
+	const router = useRouter();
 	const [showPassword, setShowPassword] = useState(false);
 	const [showPasswordCheck, setShowPasswordCheck] = useState(false);
 	const [email, setEmail] = useState('');
@@ -112,6 +114,7 @@ export default function Page() {
 
 			if (response.ok) {
 				alert('회원가입 성공!');
+				router.push('/');
 			} else {
 				const errorResponse = await response.json();
 				console.error('FastAPI 에러:', errorResponse.detail); // 에러 로그 추가
