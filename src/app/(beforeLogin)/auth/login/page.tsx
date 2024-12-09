@@ -4,12 +4,31 @@ import Image from 'next/image';
 import Logo from '../../../../../public/images/logo.png';
 import Link from 'next/link';
 import { useState } from 'react';
+import { auth, signInWithEmailAndPassword } from '@/firebase'; // 로그인 함수 import
 
 export default function Page() {
 	const [showPassword, setShowPassword] = useState(false);
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [error, setError] = useState('');
 
 	const togglePasswordVisibility = () => {
 		setShowPassword((prev) => !prev);
+	};
+
+	const handleLogin = async (e: React.FormEvent) => {
+		e.preventDefault();
+		try {
+			// Firebase 로그인
+			await signInWithEmailAndPassword(auth, email, password);
+			alert('로그인 성공!');
+			// 로그인 후 홈으로 이동
+			window.location.href = '/';
+		} catch (err: any) {
+			// 에러 처리
+			console.error('로그인 실패:', err);
+			setError('이메일 또는 비밀번호가 잘못되었습니다.');
+		}
 	};
 
 	return (
@@ -17,16 +36,20 @@ export default function Page() {
 			<Link href='/'>
 				<Image src={Logo} alt='logo' width={400} className='mb-[4.5rem]' />
 			</Link>
-			<form className='slide-up w-full'>
+			<form onSubmit={handleLogin} className='slide-up w-full'>
 				<h1 className='text-[1.7rem] font-bold mb-9 text-slate-700'>로그인</h1>
 				<input
 					type='text'
 					placeholder='이메일'
+					value={email}
+					onChange={(e) => setEmail(e.target.value)}
 					className='w-full h-14 p-6 bg-slate-100 rounded-[0.75rem] mb-6 outline-none'></input>
 				<div className='w-full flex relative mb-6'>
 					<input
 						type={showPassword ? 'text' : 'password'}
 						placeholder='비밀번호'
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
 						className='w-full h-14 p-6 bg-slate-100 rounded-[0.75rem] outline-none'
 					/>
 					<button
@@ -54,11 +77,14 @@ export default function Page() {
 						)}
 					</button>
 				</div>
+				{error && <p className='text-red-500 text-sm mb-4'>{error}</p>}
 				<div className='w-full flex justify-between items-center mb-8'>
 					<Link href='#' className='text-slate-500 text-sm hover:text-[#3699ff]'>
 						비밀번호 찾기
 					</Link>
-					<button className='bg-[#3699ff] hover:bg-[#1086ff] px-6 py-3 text-sm text-white rounded-[0.75rem]'>
+					<button
+						type='submit'
+						className='bg-[#3699ff] hover:bg-[#1086ff] px-6 py-3 text-sm text-white rounded-[0.75rem]'>
 						로그인
 					</button>
 				</div>
