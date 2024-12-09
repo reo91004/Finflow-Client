@@ -5,6 +5,7 @@ import Logo from '../../../../../public/images/logo.png';
 import Link from 'next/link';
 import { useState } from 'react';
 import { auth, signInWithEmailAndPassword } from '@/firebase'; // 로그인 함수 import
+import axios from 'axios';
 
 export default function Page() {
 	const [showPassword, setShowPassword] = useState(false);
@@ -20,12 +21,32 @@ export default function Page() {
 		e.preventDefault();
 		try {
 			// Firebase 로그인
-			await signInWithEmailAndPassword(auth, email, password);
+			const userCredential = await signInWithEmailAndPassword(
+				auth,
+				email,
+				password,
+			);
+			const user = userCredential.user;
+
+			// FastAPI에서 JWT 토큰 발급 요청
+			const formData = new URLSearchParams();
+			formData.append('username', email);
+			formData.append('password', password);
+
+			const response = await axios.post('http://localhost:8000/token', formData, {
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded',
+				},
+			});
+
+			const { access_token } = response.data;
+
+			// JWT 토큰을 로컬 상태 또는 context에 저장
+			localStorage.setItem('access_token', access_token);
+
 			alert('로그인 성공!');
-			// 로그인 후 홈으로 이동
-			window.location.href = '/';
+			window.location.href = '/portfolio'; // 로그인 후 포트폴리오 페이지로 이동
 		} catch (err: any) {
-			// 에러 처리
 			console.error('로그인 실패:', err);
 			setError('이메일 또는 비밀번호가 잘못되었습니다.');
 		}

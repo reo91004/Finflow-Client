@@ -101,6 +101,7 @@ export default function Page() {
 			const user = userCredential.user;
 
 			// FastAPI로 사용자 정보 전송
+			// 생각해보니 굳이 DB에 할 필요가 없네..
 			const response = await fetch('http://localhost:8000/register', {
 				method: 'POST',
 				headers: {
