@@ -17,7 +17,10 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+		dropShadow: {
+			xl: "0 10px 15px rgba(0, 0, 0, 0.07)", // 불투명도를 낮춘 새로운 값
+		},
   	}
   },
   plugins: [require("tailwindcss-animate")],
