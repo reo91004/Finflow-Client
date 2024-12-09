@@ -15,15 +15,17 @@ export default function StockPortfolio() {
 	const [searchTerm, setSearchTerm] = useState('');
 	const [searchResults, setSearchResults] = useState<StockData>(null); // 타입 명시적으로 설정해서 빨간줄 없앰
 	const [token, setToken] = useState<string | null>(null);
+	const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
 
 	// JWT 토큰 로드
 	useEffect(() => {
 		const storedToken = localStorage.getItem('access_token');
 		if (storedToken) {
 			setToken(storedToken);
+			setIsLoading(false); // 토큰이 확인되면 로딩 완료
 		} else {
-			alert('로그인이 필요합니다.');
-			window.location.href = '/auth/login'; // 로그인 페이지로 리디렉션
+			// 토큰이 없으면 로그인 페이지로 리다이렉션
+			window.location.href = '/auth/login';
 		}
 	}, []);
 
@@ -53,6 +55,11 @@ export default function StockPortfolio() {
 			setSearchResults(null);
 		}
 	};
+
+	// 로딩 중일 때는 아무것도 렌더링하지 않음
+	if (isLoading) {
+		return null;
+	}
 
 	return (
 		<div className='bg-white min-h-screen'>

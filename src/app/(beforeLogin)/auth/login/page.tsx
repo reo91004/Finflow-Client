@@ -41,7 +41,7 @@ export default function Page() {
 
 			const { access_token } = response.data;
 
-			// JWT 토큰을 로컬 상태 또는 context에 저장
+			// JWT 토큰을 로컬스트로지에 저장
 			localStorage.setItem('access_token', access_token);
 
 			alert('로그인 성공!');
