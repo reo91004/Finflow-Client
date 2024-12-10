@@ -6,9 +6,9 @@ export default function AfterLoginLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<main>
+		<div>
 			<Navbar />
-			{children}
-		</main>
+			<main className='min-h-screen px-64 pt-36 bg-[#f9fafb]'>{children}</main>
+		</div>
 	);
 }
