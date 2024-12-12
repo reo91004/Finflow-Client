@@ -29,7 +29,7 @@ export default function Navbar() {
     };
 
     return (
-        <nav className="w-full h-[4.25rem] fixed bg-white flex justify-between items-center drop-shadow-xl">
+        <nav className="w-full h-[4.25rem] fixed bg-white flex justify-between items-center drop-shadow-xl z-50">
             <div className="mx-5 flex gap-[2rem] items-center">
                 <Link href="/">
                     <Image src={Logo} alt="logo" width={180} />

@@ -19,7 +19,7 @@ export default {
   			sm: 'calc(var(--radius) - 4px)'
   		},
 		dropShadow: {
-			xl: "0 10px 15px rgba(0, 0, 0, 0.07)", // 불투명도를 낮춘 새로운 값
+			xl: "0 10px 15px rgba(0, 0, 0, 0.07)",
 		},
   	}
   },
