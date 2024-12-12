@@ -58,24 +58,18 @@ export default function Page() {
 
   return (
     <div className='w-[22rem] mx-auto flex flex-col items-center justify-center min-h-screen'>
-      <Link href='/'>
-        <Image src={Logo} alt='logo' width={400} className='mb-[4.5rem]' />
-      </Link>
-      <form onSubmit={handleLogin} className='slide-up w-full'>
+      <Image src={Logo} alt='logo' width={400} className='mb-[4.5rem]' />
+      <form className='slide-up w-full'>
         <h1 className='text-[1.7rem] font-bold mb-9 text-slate-700'>로그인</h1>
         <input
           type='text'
           placeholder='이메일'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
           className='w-full h-14 p-6 bg-slate-100 rounded-[0.75rem] mb-6 outline-none'
         ></input>
         <div className='w-full flex relative mb-6'>
           <input
             type={showPassword ? 'text' : 'password'}
             placeholder='비밀번호'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
             className='w-full h-14 p-6 bg-slate-100 rounded-[0.75rem] outline-none'
           />
           <button
@@ -106,7 +100,6 @@ export default function Page() {
             )}
           </button>
         </div>
-        {error && <p className='text-red-500 text-sm mb-4'>{error}</p>}
         <div className='w-full flex justify-between items-center mb-8'>
           <Link
             href='#'
@@ -114,10 +107,7 @@ export default function Page() {
           >
             비밀번호 찾기
           </Link>
-          <button
-            type='submit'
-            className='bg-[#3699ff] hover:bg-[#1086ff] px-6 py-3 text-sm text-white rounded-[0.75rem]'
-          >
+          <button className='bg-[#3699ff] hover:bg-[#1086ff] px-6 py-3 text-sm text-white rounded-[0.75rem]'>
             로그인
           </button>
         </div>
