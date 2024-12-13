@@ -141,7 +141,7 @@ export default function Page() {
   return (
     <div className='w-[22rem] mx-auto flex flex-col items-center justify-center min-h-screen'>
       <Image src={Logo} alt='logo' width={400} className='mb-[4.5rem]' />
-      <form className='slide-up w-full'>
+      <form onSubmit={handleSignUp} className='slide-up w-full'>
         <h1 className='text-[1.7rem] font-bold mb-9 text-slate-700'>
           회원가입
         </h1>
